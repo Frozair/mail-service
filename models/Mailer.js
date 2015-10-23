@@ -1,14 +1,20 @@
-var nodemailer = require("nodemailer");
-var method = Mailer.prototype;
+var nodemailer  = require("nodemailer");
+var CONFIG      = require("../config.js");
+var method      = Mailer.prototype;
 
 function Mailer() {
   this.smtpTransport = initTransport();
 }
 
 method.sendMail = function(subject, body, callback) {
+  if(!this.smtpTransport){
+      callback("An error occurred with SMTP server.");
+      return false;
+  }
+
   this.smtpTransport.sendMail({
-     from:    "No-Reply <no-replya@example.com>", // sender address
-     to:      "John Doe <jdoe@example.com>", // comma separated list of receivers
+     from:    CONFIG.emails.from, // sender address
+     to:      CONFIG.emails.to, // comma separated list of receivers
      subject: subject, // Subject line
      html:    body // plaintext body
   }, callback);
@@ -17,12 +23,16 @@ method.sendMail = function(subject, body, callback) {
 /** Helper Functions **/
 function initTransport() {
   return nodemailer.createTransport("SMTP", {
-     service: "Gmail",
+     service: CONFIG.smtp.service,
      auth: {
-         user: "",
-         pass: ""
+         user: CONFIG.smtp.user,
+         pass: CONFIG.smtp.pass
      }
   });
 }
 
-module.exports = Mailer;
+module.exports = {
+  getInstance: function() {
+      return new Mailer();
+  }
+};
