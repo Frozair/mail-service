@@ -1,0 +1,24 @@
+{
+  "name": "mail-service",
+  "version": "1.0.0",
+  "description": "A simple maiml service",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/newrdev/mail-service.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/newrdev/mail-service/issues"
+  },
+  "homepage": "https://github.com/newrdev/mail-service#readme",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "nodemailer": "^0.7.1"
+  }
+}
